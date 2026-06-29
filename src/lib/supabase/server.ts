@@ -1,5 +1,7 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+
+type CookieToSet = { name: string; value: string; options?: CookieOptions };
 
 // Server-side Supabase client for Server Components, Route Handlers and Server Actions.
 // Reads the session from cookies. Writing cookies from a Server Component throws,
@@ -15,7 +17,7 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: CookieToSet[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
