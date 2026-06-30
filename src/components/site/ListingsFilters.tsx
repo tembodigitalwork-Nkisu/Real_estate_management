@@ -16,11 +16,19 @@ export function ListingsFilters({ cities }: { cities: string[] }) {
     router.push(`${pathname}?${next.toString()}`);
   }
 
+  // Price inputs: keep digits only, drop the param when cleared.
+  function updatePrice(key: 'min_price' | 'max_price', raw: string) {
+    const digits = raw.replace(/[^\d]/g, '');
+    update(key, digits);
+  }
+
+  const hasFilters = Array.from(params.keys()).length > 0;
+
   const field =
     'rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700';
 
   return (
-    <div className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-6">
+    <div className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-4">
       <input
         defaultValue={params.get('q') ?? ''}
         onBlur={(e) => update('q', e.target.value.trim())}
@@ -61,6 +69,44 @@ export function ListingsFilters({ cities }: { cities: string[] }) {
         <option value="3">3+ beds</option>
         <option value="4">4+ beds</option>
       </select>
+
+      <input
+        type="number"
+        min="0"
+        inputMode="numeric"
+        defaultValue={params.get('min_price') ?? ''}
+        onBlur={(e) => updatePrice('min_price', e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') updatePrice('min_price', (e.target as HTMLInputElement).value);
+        }}
+        placeholder="Min price"
+        className={field}
+      />
+
+      <input
+        type="number"
+        min="0"
+        inputMode="numeric"
+        defaultValue={params.get('max_price') ?? ''}
+        onBlur={(e) => updatePrice('max_price', e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') updatePrice('max_price', (e.target as HTMLInputElement).value);
+        }}
+        placeholder="Max price"
+        className={field}
+      />
+
+      {hasFilters && (
+        <div className="flex items-center justify-end sm:col-span-2 lg:col-span-4">
+          <button
+            type="button"
+            onClick={() => router.push(pathname)}
+            className="text-sm font-medium text-slate-500 underline-offset-2 hover:text-brand-700 hover:underline"
+          >
+            Clear all filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }

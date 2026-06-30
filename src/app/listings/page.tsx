@@ -24,12 +24,22 @@ export default async function ListingsPage({
 }) {
   const sp = await searchParams;
 
+  // Parse a positive number from a query param, ignoring blanks/garbage.
+  const num = (v: string | string[] | undefined): number | undefined => {
+    const raw = one(v);
+    if (!raw) return undefined;
+    const n = Number(raw);
+    return Number.isFinite(n) && n >= 0 ? n : undefined;
+  };
+
   const [properties, cities] = await Promise.all([
     getPublishedProperties({
       listingType: one(sp.listing_type) as ListingType | undefined,
       propertyType: one(sp.property_type) as PropertyType | undefined,
       city: one(sp.city),
-      bedrooms: one(sp.beds) ? Number(one(sp.beds)) : undefined,
+      bedrooms: num(sp.beds),
+      minPrice: num(sp.min_price),
+      maxPrice: num(sp.max_price),
       search: one(sp.q),
     }),
     getListingCities(),
