@@ -34,7 +34,13 @@ export function LoginForm() {
     }
 
     // Full navigation so the middleware re-evaluates the new session cookie.
-    const redirectTo = params.get('redirect') ?? '/admin';
+    // Only follow same-origin relative paths — never an attacker-supplied
+    // absolute or protocol-relative ("//host") URL — to avoid an open redirect.
+    const requested = params.get('redirect');
+    const redirectTo =
+      requested && requested.startsWith('/') && !requested.startsWith('//')
+        ? requested
+        : '/admin';
     window.location.assign(redirectTo);
   }
 
