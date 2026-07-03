@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Home, KeyRound, ShieldCheck } from 'lucide-react';
 import { Header } from '@/components/site/Header';
@@ -15,14 +16,13 @@ export default async function HomePage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-950 text-white">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+        <Image
+          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 object-cover opacity-20"
           aria-hidden
         />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">

@@ -1,5 +1,20 @@
 import type { Metadata } from 'next';
+import { Inter, Fraunces } from 'next/font/google';
 import './globals.css';
+
+// Body text: Inter (clean, neutral). Headings: Fraunces (a soft editorial
+// serif) for a warmer, less templated feel. Exposed as CSS variables so
+// Tailwind's font-sans / font-display utilities pick them up.
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
@@ -31,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body>{children}</body>
     </html>
   );

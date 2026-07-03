@@ -109,7 +109,6 @@ export default async function LeasesPage() {
                       name="status"
                       defaultValue={l.status}
                       className="rounded-md border border-slate-300 px-2 py-1 text-xs"
-                      // Auto-submit on change.
                     >
                       <option value="pending">Pending</option>
                       <option value="active">Active</option>

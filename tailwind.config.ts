@@ -5,22 +5,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // "Acacia" green — an earthier, more premium identity than stock blue.
         brand: {
-          50: '#f0f6ff',
-          100: '#dceafe',
-          200: '#bcd5fd',
-          300: '#8eb6fb',
-          400: '#598cf6',
-          500: '#3366ef',
-          600: '#1f4ce4',
-          700: '#1a3bd1',
-          800: '#1c33aa',
-          900: '#1d3086',
-          950: '#161f52',
+          50: '#f1f7f2',
+          100: '#dcebe0',
+          200: '#bad7c3',
+          300: '#8dbb9d',
+          400: '#5c9975',
+          500: '#3b7d57',
+          600: '#2b6444',
+          700: '#235038',
+          800: '#1f402e',
+          900: '#1b3527',
+          950: '#0d1f15',
         },
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'Cambria', 'serif'],
       },
     },
   },
